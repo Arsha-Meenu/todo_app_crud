@@ -53,3 +53,6 @@
                 python3 manage.py  runserver
 
          9.add styles for the templates .
+
+
+
