@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<section class="vh-100" style="background-color: #eee;padding-top: 10px;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-lg-9 col-xl-7">
+          <div class="card rounded-3">
+            <div class="card-body p-4">  
+              <h4 class="text-center my-3 pb-5">TODO APP</h4>  
+              <form method="post" action="{% url 'list-tasks' %}" style="padding-top: 20px;">
+                {% csrf_token %}
+                <div class="col-12">
+                  <div class="form-outline" style="float:right">
+                    {{form.title}}
+                  <button type="submit" class="btn btn-sm btn-warning"style="color:black;">Add task</button>
+                  </div>
+                </div>                
+              </form>
+  <hr>
+              <table class="table mb-4">
+                <thead>
+                  <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Title</th>                    
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>
+                        {% if task.complete == True %}
+                        <strike>{{task}}</strike>
+                        {% else %}
+                        <p>{{task.title}}</p>
+                        {% endif %}
+                    </td>                   
+                    <td>
+                        <a href="{% url 'update-task' task.id %}" style="text-decoration: none;">Update</a>&nbsp;&nbsp;/&nbsp;&nbsp;
+                        <a href="{% url 'delete-task' task.id %}" style="color: rgb(245, 37, 10);text-decoration: none;">Delete</a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                 
+                </tbody>
+              </table>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
